@@ -1,31 +1,37 @@
 import {useEffect,useState} from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
 
   let [datas,setData] = useState([]);
 
+  axios.get("http://106.51.60.94:5000/gettrackers")
+  .then((res) =>{
+      setData(res.data);
+  });
 
-    useEffect(() =>{
-        fetch("http://localhost:8000/table")
-        .then((response)=>response.json())
-        .then((data1)=>{
-            setData(data1);
-            console.log(data1);
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
-    },[])
+
+    // useEffect(() =>{
+    //     fetch("http://106.51.60.94:5000/gettrackers")
+    //     .then((response)=>response.json())
+    //     .then((data1)=>{
+    //         setData(data1);
+    //         console.log(data1);
+    //     })
+    //     .catch((error)=>{
+    //         console.log(error);
+    //     })
+    // },[])
 
 
     const tableItems = datas.map((data) =>
         <tr key={data.id}>
-            <td>{data.tracker_id}</td>
-            <td>{data.tracker_number}</td>
+            <td>{data["tracker-id"]}</td>
+            <td>{data["tracker-number"]}</td>
             <td>{data.tracker}</td>
-            <td>{data.grid_view}</td>
-            <td>{data.card_view}</td>
+            <td>{data["grid-view"]}</td>
+            <td>{data["card-view"]}</td>
             <td>{data.create}</td>
             <td>{data.edit}</td>
             <td>{data.delete}</td>
@@ -33,7 +39,7 @@ function App() {
             <td>{data.sort}</td>
             <td>{data.link}</td>
             <td>{data.secured}</td>
-            <td>{data.tracker_info}</td>
+            <td>{data["tracker-info"]}</td>
             <td>{data.status}</td>
             <td>{data.external}</td>
 
